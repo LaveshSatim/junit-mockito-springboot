@@ -38,71 +38,77 @@ public class PropertyController {
 
 	@PostMapping("/properties")
 	public ResponseEntity<PropertyDTO> saveProperty(@RequestBody PropertyDTO propertyDTO) {
-
+		ResponseEntity<PropertyDTO> responseEntity;
 		try {
 			propertyDTO = propertyService.saveProperty(propertyDTO);
-			ResponseEntity<PropertyDTO> responseEntity = new ResponseEntity<>(propertyDTO, HttpStatus.CREATED);
-			return responseEntity;
+			responseEntity = new ResponseEntity<>(propertyDTO, HttpStatus.CREATED);
+
 		} catch (Exception e) {
 			throw new GenericRestException("not able to save now! please try later");
 		}
+		return responseEntity;
 	}
 
 	@GetMapping("/properties")
 	public ResponseEntity<List<PropertyDTO>> getAllProperties() {
+		ResponseEntity<List<PropertyDTO>> responseEntity;
 		try {
 			List<PropertyDTO> propertyList = propertyService.getAllProperties();
-			ResponseEntity<List<PropertyDTO>> responseEntity = new ResponseEntity<>(propertyList, HttpStatus.OK);
-			return responseEntity;
+			responseEntity = new ResponseEntity<>(propertyList, HttpStatus.OK);
 		} catch (Exception e) {
 			throw new GenericRestException("error please try later!");
 		}
+		return responseEntity;
 	}
 
 	@PutMapping("/properties/{propertyId}")
 	public ResponseEntity<PropertyDTO> updateProperty(@RequestBody PropertyDTO propertyDTO,
 			@PathVariable Long propertyId) {
+		ResponseEntity<PropertyDTO> responseEntity;
 		try {
 			propertyDTO = propertyService.updateProperty(propertyDTO, propertyId);
-			ResponseEntity<PropertyDTO> responseEntity = new ResponseEntity<>(propertyDTO, HttpStatus.OK);
-			return responseEntity;
+			responseEntity = new ResponseEntity<>(propertyDTO, HttpStatus.OK);
 		} catch (Exception e) {
 			throw new GenericRestException("not able to update now try again");
 		}
+		return responseEntity;
 	}
 
 	@PatchMapping("/properties/update-description/{propertyId}")
 	public ResponseEntity<PropertyDTO> updatePropertyDescription(@RequestBody PropertyDTO propertyDTO,
 			@PathVariable Long propertyId) {
+		ResponseEntity<PropertyDTO> responseEntity;
 		try {
 			propertyDTO = propertyService.updatePropertyDescription(propertyDTO, propertyId);
-			ResponseEntity<PropertyDTO> responseEntity = new ResponseEntity<>(propertyDTO, HttpStatus.OK);
-			return responseEntity;
+			responseEntity = new ResponseEntity<>(propertyDTO, HttpStatus.OK);
 		} catch (BusinessException e) {
 			throw new GenericRestException("not able to update now try again");
 		}
+		return responseEntity;
 	}
 
 	@PatchMapping("/properties/update-price/{propertyId}")
 	public ResponseEntity<PropertyDTO> updatePropertyPrice(@RequestBody PropertyDTO propertyDTO,
 			@PathVariable Long propertyId) {
+		ResponseEntity<PropertyDTO> responseEntity;
 		try {
 			propertyDTO = propertyService.updatePropertyPrice(propertyDTO, propertyId);
-			ResponseEntity<PropertyDTO> responseEntity = new ResponseEntity<>(propertyDTO, HttpStatus.OK);
-			return responseEntity;
+			responseEntity = new ResponseEntity<>(propertyDTO, HttpStatus.OK);
 		} catch (Exception e) {
 			throw new GenericRestException("not able to update now try again");
 		}
+		return responseEntity;
 	}
 
 	@DeleteMapping("/properties/{propertyId}")
 	public ResponseEntity deleteProperty(@PathVariable Long propertyId) {
+		ResponseEntity<Void> responseEntity;
 		try {
 			propertyService.deleteProperty(propertyId);
-			ResponseEntity<Void> responseEntity = new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-			return responseEntity;
+			responseEntity = new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			throw new GenericRestException("id not present in db " + propertyId);
 		}
+		return responseEntity;
 	}
 }
